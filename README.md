@@ -1,25 +1,29 @@
-# Finance Dashboard
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import { defineConfig, globalIgnores } from 'eslint/config'
 
-## Overview
-This is a simple Finance Dashboard built using React and Vite. It allows users to track income and expenses.
-
-## Features
-- View total Income, Expense, and Balance
-- Add new transactions (Admin only)
-- Delete transactions (Admin only)
-- Role-based UI (Viewer/Admin)
-- Search transactions
-- Insights section (basic analytics)
-
-## Tech Stack
-- React
-- Vite
-- JavaScript
-- CSS
-
-## How to Run
-1. Install dependencies:
-   npm install
-
-2. Run the project:
-   npm run dev
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{js,jsx}'],
+    extends: [
+      js.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        ecmaFeatures: { jsx: true },
+        sourceType: 'module',
+      },
+    },
+    rules: {
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+    },
+  },
+])
